@@ -120,7 +120,7 @@ def train(args):
                         for state in optim.state.values():
                             for k, v in state.items():
                                 if isinstance(v, torch.Tensor):
-                                    state[k] = v.to(self.device)
+                                    state[k] = v.to(args.device)
                         for group in optim.param_groups:
                             group['lr'] = lr
 
@@ -145,7 +145,7 @@ def test(data, model, vocab, args, typer='val'):
 
         total += examples.shape[0]
 
-        if typer == 'test':
+        if typer == 'val':
             labels = torch.tensor(labels).to(args.device)
             correct = correct +  torch.sum((labels == output)).item()
 
